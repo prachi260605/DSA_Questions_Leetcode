@@ -8,11 +8,11 @@ public:
             return;
         }
 
-        for(int i =index; i<nums.size();i++){
-            swap(nums[index],nums[i]);
+        for(int j =index; j<nums.size();j++){
+            swap(nums[index],nums[j]);
             solve(nums, index+1, ans);
             //backtrack
-            swap(nums[index],nums[i]);
+            // swap(nums[index],nums[j]);
         }
     }
     vector<vector<int>> permute(vector<int>& nums) {
