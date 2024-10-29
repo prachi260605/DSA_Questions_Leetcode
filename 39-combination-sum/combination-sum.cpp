@@ -1,26 +1,25 @@
 class Solution {
 public:
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>> res;
-        vector<int> comb;
-        makeCombination(candidates, target, 0, comb, 0, res);
-        return res;        
+    void solve(vector<int>& candidates, int target, int index, int total, vector<int>&output, vector<vector<int>>&ans){
+        if(target == total){
+            ans.push_back(output);
+            return;
+        }
+        if(index >= candidates.size() || total > target){
+            return;
+        }
+        output.push_back(candidates[index]);
+        solve(candidates, target, index, total + candidates[index], output, ans);
+        output.pop_back();
+        solve(candidates, target, index+1, total, output, ans);
+        
     }
-
-private:
-    void makeCombination(std::vector<int>& candidates, int target, int idx, vector<int>& comb, int total, vector<vector<int>>& res) {
-        if (total == target) {
-            res.push_back(comb);
-            return;
-        }
-
-        if (total > target || idx >= candidates.size()) {
-            return;
-        }
-
-        comb.push_back(candidates[idx]);
-        makeCombination(candidates, target, idx, comb, total + candidates[idx], res);
-        comb.pop_back();
-        makeCombination(candidates, target, idx + 1, comb, total, res);
-    }    
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        int index =0;
+        int total =0;
+        vector<int>output; 
+        vector<vector<int>>ans;
+        solve(candidates, target, index, total, output, ans);
+        return ans;    
+    }
 };
