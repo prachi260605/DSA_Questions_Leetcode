@@ -12,6 +12,6 @@ public:
             x = x/10;
         }
         
-        return int(result);
+        return result;
     }
 };
