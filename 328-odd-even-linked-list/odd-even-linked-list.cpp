@@ -11,7 +11,7 @@
 class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
-        if (!head) return nullptr;
+        if (!head || !head->next ) return head;
 
         ListNode* temp = head;
         ListNode* nn = new ListNode(temp->val);  // first odd node
