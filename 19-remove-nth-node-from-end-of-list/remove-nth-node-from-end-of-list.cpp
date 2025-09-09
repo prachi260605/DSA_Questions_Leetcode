@@ -14,7 +14,6 @@ public:
         if(!head) return nullptr;
         ListNode* fast = head;
         while(n--){
-            // n--;
             fast = fast->next;
         }
         if(fast == nullptr){
