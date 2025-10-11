@@ -48,28 +48,32 @@ public:
         while(!q.empty()){
             
             int size_q = q.size();
+            int flag = 0;
 
             for(int i = 0; i<size_q; i ++){
                 TreeNode* node = q.front(); 
                 q.pop();
 
                 if(node->left && !visited.count(node->left)){
+                    flag = 1;
                     q.push(node->left);
                     visited.insert(node->left);
                 }
                 if(node->right && !visited.count(node->right)){
+                    flag = 1;
                     q.push(node->right);
                     visited.insert(node->right);
                 }
                 if(parent[node] && !visited.count(parent[node])){
+                    flag = 1;
                     q.push(parent[node]);
                     visited.insert(parent[node]);
                 }
             }
-            minute++;
+            if(flag) minute++;
         }
 
-        return minute-1;
+        return minute;
         
     }
         
