@@ -37,11 +37,12 @@ public:
         }
 
         q.push(target);
-        unordered_map<TreeNode*, bool> visited;
-        visited[target] = true;
+        unordered_set<TreeNode*> visited;
+        visited.insert(target);
         int dist = 0;
 
         while(!q.empty()){
+            
             int size_q = q.size();
             if(dist == k) break;
 
@@ -49,17 +50,17 @@ public:
                 TreeNode* node = q.front(); 
                 q.pop();
 
-                if(node->left && !visited[node->left]){
-                    q.push(node->left);
-                    visited[node->left] = true;
+                if(node->left && !visited.count(node->left)){
+                q.push(node->left);
+                visited.insert(node->left);
                 }
-                if(node->right && !visited[node->right]){
+                if(node->right && !visited.count(node->right)){
                     q.push(node->right);
-                    visited[node->right] = true;
+                    visited.insert(node->right);
                 }
-                if(parent[node] && !visited[parent[node]]){
+                if(parent[node] && !visited.count(parent[node])){
                     q.push(parent[node]);
-                    visited[parent[node]] = true;
+                    visited.insert(parent[node]);
                 }
             }
             dist++;
