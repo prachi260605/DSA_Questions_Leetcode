@@ -1,25 +1,33 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-    int kthSmallest(TreeNode* root, int k) {
-        stack<TreeNode*> st;
-        TreeNode* curr = root;
-        int count = 0;
+    void dfs(TreeNode* root, int &ans, int &cnt, int k){
+        if(!root) return;
 
-        while (curr || !st.empty()) {
-            while (curr) {
-                st.push(curr);
-                curr = curr->left;
-            }
-
-            curr = st.top();
-            st.pop();
-            count++;
-
-            if (count == k) return curr->val;
-
-            curr = curr->right;
+        dfs(root->left, ans, cnt, k);
+        cnt++;
+        if(cnt == k){
+            ans = root->val;
+            return;
         }
 
-        return -1; // shouldn't reach here if k is valid
+        dfs(root->right, ans, cnt, k);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        int cnt = 0;
+        int ans;
+        dfs(root, ans, cnt, k);
+        return ans;
+        
     }
 };
