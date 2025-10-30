@@ -6,30 +6,27 @@
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
- * right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
 class Solution {
 public:
     void flatten(TreeNode* root) {
-        if (root == nullptr)
-            return;
+        TreeNode* curr = root;
 
-        TreeNode* current = root;
-        while (current != nullptr) {
+        while(curr != NULL){
 
-            if (current->left != nullptr) {
-                TreeNode* last = current->left;
-                while (last->right != nullptr) {
-                    last = last->right;
+            if(curr->left){
+                TreeNode* prev = curr->left;
+                while(prev->right){
+                    prev = prev->right;
                 }
-
-                last->right = current->right;
-                current->right = current->left;
-                current->left = nullptr;
+                prev->right = curr->right;
+                curr->right = curr->left;
+                curr->left = NULL;
             }
-            current = current->right;
+            curr = curr->right;
         }
+        
     }
 };
